@@ -1,5 +1,5 @@
 build:
-	@./gradlew uberJar
+	@./gradlew build
 
 clean:
 	@./gradlew clean

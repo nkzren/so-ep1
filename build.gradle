@@ -45,3 +45,7 @@ tasks.register('uberJar', Jar) {
         configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
     }
 }
+
+tasks.build {
+    dependsOn tasks.uberJar
+}
