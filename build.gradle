@@ -30,3 +30,18 @@ jar {
         attributes 'Main-Class': 'br.usp.Main'
     }
 }
+
+tasks.register('uberJar', Jar) {
+    manifest {
+        attributes 'Main-Class': 'br.usp.Main'
+    }
+
+    archiveClassifier = 'uber'
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
+}
