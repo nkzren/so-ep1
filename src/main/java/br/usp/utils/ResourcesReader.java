@@ -2,9 +2,10 @@ package br.usp.utils;
 
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public class ResourcesReader {
 
     private static final Logger LOGGER = Logger.getLogger(ResourcesReader.class);
 
-    private static final String BASE_PATH = "src/main/resources/programas/";
+    private static final String BASE_PATH = "src/main/resources/";
 
     public Optional<String> readAll(String fileName) {
         try {
@@ -26,14 +27,37 @@ public class ResourcesReader {
         }
     }
 
-    public List<String> readLines(String fileName) {
+    /**
+     * Funcao para ler as linhas de um arquivo
+     * @param file O arquivo
+     * @return Uma lista com as linhas de um arquivo
+     */
+    public List<String> readLines(File file) {
         try {
-            Stream<String> lines = Files.lines(Paths.get("src/main/resources/programas/" + fileName), StandardCharsets.UTF_8);
-
+            Stream<String> lines = Files.lines(file.toPath());
             return lines.collect(Collectors.toList());
         } catch (IOException e) {
-            LOGGER.error("Erro na leitura do arquivo: " + fileName, e);
+            LOGGER.error("Erro na leitura do arquivo: " + file.getName(), e);
             return List.of();
+        }
+    }
+
+    /**
+     * Funcao para ler todos os arquivos de um diretorio
+     * @param folderName o nome da pasta
+     * @return a stream de arquivos, ordenada por ordem alfabetica pelo nome do arquivos
+     */
+    public Stream<File> getFilesInFolder(String folderName) {
+        try {
+            Stream<Path> filePaths = Files.walk(Paths.get(BASE_PATH + folderName));
+
+            return filePaths
+                    .map(Path::toFile)
+                    .sorted((file, other) -> file.getName().compareToIgnoreCase(other.getName()));
+
+        } catch (IOException e) {
+            LOGGER.error("Erro na leitura da pasta: " + folderName, e);
+            return Stream.of();
         }
     }
 }

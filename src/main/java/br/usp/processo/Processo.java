@@ -1,10 +1,13 @@
 package br.usp.processo;
 
+import java.util.List;
+
 public class Processo {
 
-    private Estado estado;
+    private Estado estado = Estado.PRONTO;
 
-    private Integer registradorX;
+    private Integer registradorX = null;
 
-    private Integer registradorY;
+    private Integer registradorY = null;
+
 }
