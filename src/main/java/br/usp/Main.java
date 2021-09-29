@@ -1,5 +1,6 @@
 package br.usp;
 
+import br.usp.bcp.BCP;
 import br.usp.escalonador.Escalonador;
 import br.usp.processo.Processo;
 import br.usp.utils.ResourcesReader;
@@ -17,7 +18,11 @@ public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
-    private final ResourcesReader reader = new ResourcesReader();
+    private final ResourcesReader reader;
+
+    public Main(ResourcesReader reader) {
+        this.reader = reader;
+    }
 
     /**
      * Inicializa o escalonador a partir do arquivo de quantum
@@ -45,11 +50,12 @@ public class Main {
 
         files.forEach(file -> {
             List<String> lines = reader.readLines(file);
+            escalonador.carregaBCP(BCP.of(lines));
         });
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
+        Main main = new Main(new ResourcesReader());
 
         main.init();
     }

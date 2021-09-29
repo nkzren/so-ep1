@@ -10,4 +10,10 @@ public class Processo {
 
     private Integer registradorY = null;
 
+    private final List<String> instrucoes;
+
+    public Processo(List<String> instrucoes) {
+        this.instrucoes = instrucoes;
+    }
+
 }

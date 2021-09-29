@@ -1,5 +1,6 @@
 package br.usp.escalonador;
 
+import br.usp.bcp.BCP;
 import br.usp.processo.Processo;
 
 import java.util.LinkedList;
@@ -20,7 +21,8 @@ public class Escalonador {
         this.quantum = quantum;
     }
 
-    public void enfileiraProcesso(Processo processo) {
-        prontos.offer(processo);
+    public void carregaBCP(BCP blocoComandos) {
+        tabelaProcessos.adicionaProcesso(blocoComandos);
+        prontos.offer(blocoComandos.getProcesso());
     }
 }
