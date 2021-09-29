@@ -31,7 +31,7 @@ public class Main {
         Optional<String> maybeQuantum = reader.readAll("quantum.txt");
         if (maybeQuantum.isPresent()) {
             int quantum = Integer.parseInt(maybeQuantum.get());
-            System.out.println("Quantum: " + quantum);
+            LOGGER.info("Quantum: " + quantum);
 
             Escalonador escalonador = new Escalonador(quantum);
 
