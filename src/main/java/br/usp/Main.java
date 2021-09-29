@@ -2,7 +2,6 @@ package br.usp;
 
 import br.usp.bcp.BCP;
 import br.usp.escalonador.Escalonador;
-import br.usp.processo.Processo;
 import br.usp.utils.ResourcesReader;
 import org.apache.log4j.Logger;
 
