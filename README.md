@@ -8,6 +8,7 @@ A especificação do EP está no arquivo pdf na raiz do projeto, e os arquivos c
 * Make (opcional, mas recomendado para rodar os scripts do makefile)
 
 ## Getting Started
+Abaixo as instruções com o makefile. Se não quiser usar make, abra o makefile e veja os comandos executados lá dentro
 
 ### Compilando a aplicação
 ```sh
