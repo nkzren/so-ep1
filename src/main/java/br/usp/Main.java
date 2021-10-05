@@ -25,7 +25,7 @@ public class Main {
 
     /**
      * Inicializa o escalonador a partir do arquivo de quantum
-     */
+    */
     public void init() {
 
         Optional<String> maybeQuantum = reader.readAll("quantum.txt");
@@ -46,10 +46,11 @@ public class Main {
      */
     public void carregaProcessos(Escalonador escalonador) {
         Stream<File> files = reader.getFilesInFolder("programas");
-
         files.forEach(file -> {
-            List<String> lines = reader.readLines(file);
-            escalonador.carregaBCP(BCP.of(lines));
+            if(file.isFile()){
+                List<String> lines = reader.readLines(file);
+                escalonador.carregaBCP(BCP.of(lines));
+            }
         });
     }
 
