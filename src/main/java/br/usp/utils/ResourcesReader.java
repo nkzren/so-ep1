@@ -53,6 +53,7 @@ public class ResourcesReader {
 
             return filePaths
                     .map(Path::toFile)
+                    .filter(File::isFile)
                     .sorted((file, other) -> file.getName().compareToIgnoreCase(other.getName()));
 
         } catch (IOException e) {

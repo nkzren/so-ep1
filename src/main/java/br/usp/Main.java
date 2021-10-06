@@ -47,10 +47,8 @@ public class Main {
     public void carregaProcessos(Escalonador escalonador) {
         Stream<File> files = reader.getFilesInFolder("programas");
         files.forEach(file -> {
-            if(file.isFile()){
-                List<String> lines = reader.readLines(file);
-                escalonador.carregaBCP(BCP.of(lines));
-            }
+            List<String> lines = reader.readLines(file);
+            escalonador.carregaBCP(BCP.of(lines));
         });
     }
 
