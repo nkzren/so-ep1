@@ -3,6 +3,7 @@ package br.usp;
 import br.usp.bcp.BCP;
 import br.usp.escalonador.Escalonador;
 import br.usp.utils.ResourcesReader;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -56,6 +57,9 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main(new ResourcesReader());
+
+        // Configura o log4j
+        BasicConfigurator.configure();
 
         main.init();
     }

@@ -1,13 +1,12 @@
 package br.usp.processo;
 
-import br.usp.Main;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class Processo {
 
-    private static final Logger LOGGER = Logger.getLogger(Processo.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Processo.class.getSimpleName());
 
     private Estado estado = Estado.PRONTO;
 
@@ -22,7 +21,7 @@ public class Processo {
     }
 
     private void comando(String instrucao){
-        // System.out.println("instrucao " + instrucao);
+        LOGGER.info("instrucao " + instrucao);
         if ("SAIDA".equals(instrucao)) {
             this.estado = Estado.FINALIZADO;
         }

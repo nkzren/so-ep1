@@ -2,6 +2,8 @@ package br.usp.escalonador;
 
 import br.usp.bcp.BCP;
 import br.usp.processo.Estado;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,6 +12,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static br.usp.processo.Estado.FINALIZADO;
 
 public class Escalonador {
+
+    private static final Logger LOGGER = Logger.getLogger(Escalonador.class.getSimpleName());
 
     private final Integer quantum;
 
@@ -32,7 +36,7 @@ public class Escalonador {
         while(!prontos.isEmpty()){
             BCP bcp = prontos.poll();
 
-            // System.out.println("EXECUTANDO PROCESSO: " + bcp.getNomePrograma());
+            LOGGER.info("EXECUTANDO PROCESSO: " + bcp.getNomePrograma());
 
             for(int i = 0; i < quantum; i++){
                 Estado estado = bcp.executaProxInstrucao();
