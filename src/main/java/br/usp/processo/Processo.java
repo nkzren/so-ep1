@@ -22,7 +22,10 @@ public class Processo {
     }
 
     private void comando(String instrucao){
-        LOGGER.info("instrucao" + instrucao);
+        // System.out.println("instrucao " + instrucao);
+        if ("SAIDA".equals(instrucao)) {
+            this.estado = Estado.FINALIZADO;
+        }
     }
 
     public void executa (int contador){

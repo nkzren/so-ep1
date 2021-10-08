@@ -32,13 +32,17 @@ public class Escalonador {
         while(!prontos.isEmpty()){
             BCP bcp = prontos.poll();
 
+            // System.out.println("EXECUTANDO PROCESSO: " + bcp.getNomePrograma());
+
             for(int i = 0; i < quantum; i++){
                 Estado estado = bcp.executaProxInstrucao();
 
                 if(estado.equals(FINALIZADO)){
+                    tabelaProcessos.removeProcesso(bcp.getRef());
                     return;
                 }
             }
+            prontos.offer(bcp);
         }
     }
 }

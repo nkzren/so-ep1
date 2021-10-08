@@ -33,8 +33,8 @@ public class BCP {
         this.ref = UUID.randomUUID();
     }
 
-    public Processo getProcesso() {
-        return this.processo;
+    public String getNomePrograma() {
+        return nomePrograma;
     }
 
     public UUID getRef() {

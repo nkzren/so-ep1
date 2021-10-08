@@ -13,4 +13,8 @@ public class TabelaProcessos {
     public void adicionaProcesso(BCP bcp) {
         processos.put(bcp.getRef(), bcp);
     }
+
+    public void removeProcesso(UUID id) {
+        processos.remove(id);
+    }
 }
