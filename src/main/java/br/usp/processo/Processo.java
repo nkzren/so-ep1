@@ -1,8 +1,13 @@
 package br.usp.processo;
 
+import br.usp.Main;
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 public class Processo {
+
+    private static final Logger LOGGER = Logger.getLogger(Processo.class.getName());
 
     private Estado estado = Estado.PRONTO;
 
@@ -17,7 +22,7 @@ public class Processo {
     }
 
     private void comando(String instrucao){
-
+        LOGGER.info("instrucao" + instrucao);
     }
 
     public void executa (int contador){
@@ -25,4 +30,7 @@ public class Processo {
         comando(instrucao);
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
 }

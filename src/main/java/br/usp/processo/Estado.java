@@ -2,6 +2,6 @@ package br.usp.processo;
 
 public enum Estado {
 
-    EXECUTANDO,PRONTO,BLOQUEADO
+    EXECUTANDO,PRONTO,BLOQUEADO,FINALIZADO
 
 }

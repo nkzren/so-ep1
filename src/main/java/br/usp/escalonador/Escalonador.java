@@ -1,10 +1,13 @@
 package br.usp.escalonador;
 
 import br.usp.bcp.BCP;
+import br.usp.processo.Estado;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import static br.usp.processo.Estado.FINALIZADO;
 
 public class Escalonador {
 
@@ -28,8 +31,14 @@ public class Escalonador {
     public void inicia(){
         while(!prontos.isEmpty()){
             BCP bcp = prontos.poll();
-            bcp.executaProxInstrucao();
-        }
 
+            for(int i = 0; i < quantum; i++){
+                Estado estado = bcp.executaProxInstrucao();
+
+                if(estado.equals(FINALIZADO)){
+                    return;
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,10 @@
 package br.usp.bcp;
 
+import br.usp.processo.Estado;
 import br.usp.processo.Processo;
 
 import java.util.List;
+import java.util.UUID;
 
 public class BCP {
 
@@ -11,6 +13,8 @@ public class BCP {
     private int contadorPrograma;
 
     private final Processo processo;
+
+    private final UUID ref;
 
     /**
      * Funcao contendo toda a inicializacao do BCP a partir das linhas do arquivo de texto lido
@@ -26,14 +30,21 @@ public class BCP {
         this.nomePrograma = nome;
         this.processo = processo;
         this.contadorPrograma = 0;
+        this.ref = UUID.randomUUID();
     }
 
     public Processo getProcesso() {
         return this.processo;
     }
 
-    public void executaProxInstrucao(){
+    public UUID getRef() {
+        return ref;
+    }
+
+    public Estado executaProxInstrucao(){
         this.processo.executa(this.contadorPrograma);
         this.contadorPrograma++;
+
+        return this.processo.getEstado();
     }
 }
