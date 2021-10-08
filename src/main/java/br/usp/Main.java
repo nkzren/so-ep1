@@ -36,6 +36,8 @@ public class Main {
             Escalonador escalonador = new Escalonador(quantum);
 
             carregaProcessos(escalonador);
+
+            escalonador.inicia();
         } else {
             LOGGER.error("Quantum inexistente. Saindo");
         }

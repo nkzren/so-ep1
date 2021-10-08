@@ -1,7 +1,6 @@
 package br.usp.escalonador;
 
 import br.usp.bcp.BCP;
-import br.usp.processo.Processo;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -11,9 +10,9 @@ public class Escalonador {
 
     private final Integer quantum;
 
-    private final Queue<Processo> prontos = new LinkedBlockingQueue<>();
+    private final Queue<BCP> prontos = new LinkedBlockingQueue<>();
 
-    private final Queue<Processo> bloqueados = new LinkedList<>();
+    private final Queue<BCP> bloqueados = new LinkedList<>();
 
     private final TabelaProcessos tabelaProcessos = new TabelaProcessos();
 
@@ -23,6 +22,14 @@ public class Escalonador {
 
     public void carregaBCP(BCP blocoComandos) {
         tabelaProcessos.adicionaProcesso(blocoComandos);
-        prontos.offer(blocoComandos.getProcesso());
+        prontos.offer(blocoComandos);
+    }
+
+    public void inicia(){
+        while(!prontos.isEmpty()){
+            BCP bcp = prontos.poll();
+            bcp.executaProxInstrucao();
+        }
+
     }
 }

@@ -6,8 +6,6 @@ import java.util.List;
 
 public class BCP {
 
-    private final String ref;
-
     private String nomePrograma;
 
     private int contadorPrograma;
@@ -20,13 +18,12 @@ public class BCP {
      * @return BCP inicializado
      */
     public static BCP of(List<String> instrucoes) {
-
-        // FIXME: pensar num jeito bom de gerar a referencia
-        return new BCP("lalala", new Processo(instrucoes));
+        String nome = instrucoes.remove(0);
+        return new BCP(nome, new Processo(instrucoes));
     }
 
-    private BCP(String ref, Processo processo) {
-        this.ref = ref;
+    private BCP(String nome, Processo processo) {
+        this.nomePrograma = nome;
         this.processo = processo;
         this.contadorPrograma = 0;
     }
@@ -35,7 +32,8 @@ public class BCP {
         return this.processo;
     }
 
-    public String getRef() {
-        return this.ref;
+    public void executaProxInstrucao(){
+        this.processo.executa(this.contadorPrograma);
+        this.contadorPrograma++;
     }
 }

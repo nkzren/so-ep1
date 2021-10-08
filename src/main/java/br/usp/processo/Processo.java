@@ -16,4 +16,13 @@ public class Processo {
         this.instrucoes = instrucoes;
     }
 
+    private void comando(String instrucao){
+
+    }
+
+    public void executa (int contador){
+        String instrucao = instrucoes.get(contador);
+        comando(instrucao);
+    }
+
 }
