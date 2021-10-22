@@ -33,42 +33,46 @@ public class Escalonador {
     }
 
     public void inicia(){
-        while(!prontos.isEmpty()){
-            BCP bcp = prontos.poll();
-
-            LOGGER.info("EXECUTANDO PROCESSO: " + bcp.getNomePrograma());
-            Estado estado = null;
-
+        while(tabelaProcessos.temProcesso()) {
             this.bloqueados.forEach(BCP::decrementaQuantum);
-
-            for(int i = 0; i < quantum; i++){
-                estado = bcp.executaProxInstrucao();
-
-                if(FINALIZADO.equals(estado)){
-                    tabelaProcessos.removeProcesso(bcp.getRef());
-                    break;
-                } else if(BLOQUEADO.equals(estado)){
-                    bloqueados.offer(bcp);
-                    break;
-                }
+            if (!prontos.isEmpty()) {
+                escalonaProcesso();
+            } else {
+                LOGGER.warn("FILA DE PRONTOS VAZIA");
             }
 
-            if(EXECUTANDO.equals(estado)){
-                prontos.offer(bcp);
-                bcp.trocaEstado(PRONTO);
-            }
-
+            // Verifica a lista de processos bloqueados
             if(!this.bloqueados.isEmpty()){
                 BCP bcpBloqueado = this.bloqueados.peek();
 
-                if(bcpBloqueado.verificaPronto()){
-
-                    this.prontos.offer(this.bloqueados.poll());
+                if(bcpBloqueado != null && bcpBloqueado.verificaPronto()){
+                    BCP pronto = this.bloqueados.poll();
+                    LOGGER.info("REENFILEIRANDO PARA PRONTO: " + pronto.getNomePrograma());
+                    this.prontos.offer(pronto);
                 }
             }
-
-
         }
     }
 
+    private void escalonaProcesso() {
+        BCP bcp = prontos.poll();
+
+        Estado estado = null;
+
+        for(int i = 0; i < quantum; i++){
+            estado = bcp.executaProxInstrucao();
+
+            if(FINALIZADO.equals(estado)){
+                tabelaProcessos.removeProcesso(bcp.getRef());
+                break;
+            } else if(BLOQUEADO.equals(estado)){
+                bloqueados.offer(bcp);
+                break;
+            }
+        }
+        if(EXECUTANDO.equals(estado)){
+            prontos.offer(bcp);
+            bcp.trocaEstado(PRONTO);
+        }
+    }
 }

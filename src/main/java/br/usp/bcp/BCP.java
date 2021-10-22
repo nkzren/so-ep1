@@ -2,13 +2,16 @@ package br.usp.bcp;
 
 import br.usp.processo.Estado;
 import br.usp.processo.Processo;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.UUID;
 
 public class BCP {
 
-    private String nomePrograma;
+    private static final Logger LOGGER = Logger.getLogger(BCP.class.getSimpleName());
+
+    private final String nomePrograma;
 
     private int contadorPrograma;
 
@@ -43,6 +46,7 @@ public class BCP {
     }
 
     public Estado executaProxInstrucao(){
+        LOGGER.info(this.nomePrograma);
         this.processo.executa(this.contadorPrograma);
         this.contadorPrograma++;
 
@@ -54,7 +58,7 @@ public class BCP {
     }
 
     public boolean verificaPronto(){
-        if(this.processo.getQuantumBloqueados() == 0){
+        if(this.processo.getQuantumBloqueio() == 0){
             this.trocaEstado(Estado.PRONTO);
             return true;
         }
@@ -62,6 +66,7 @@ public class BCP {
     }
 
     public void decrementaQuantum(){
+        LOGGER.info(this.getNomePrograma());
         this.processo.decrementaQuantunsBloqueados();
     }
 }

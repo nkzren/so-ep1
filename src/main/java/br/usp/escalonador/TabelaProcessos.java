@@ -17,4 +17,8 @@ public class TabelaProcessos {
     public void removeProcesso(UUID id) {
         processos.remove(id);
     }
+
+    public boolean temProcesso() {
+        return !processos.isEmpty();
+    }
 }

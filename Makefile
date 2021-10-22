@@ -1,3 +1,5 @@
+all: clean build run
+
 build:
 	@./gradlew build
 

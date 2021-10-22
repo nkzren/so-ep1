@@ -14,7 +14,7 @@ public class Processo {
 
     private Integer registradorY = null;
 
-    private Integer quantumBloqueados = 0;
+    private Integer quantumBloqueio = 0;
 
     private final List<String> instrucoes;
 
@@ -23,14 +23,12 @@ public class Processo {
     }
 
     private void comando(String instrucao){
-        LOGGER.info("instrucao " + instrucao);
-
         switch(Instrucao.fromString(instrucao)){
             case COM:
                 break;
             case ES:
                 this.estado = Estado.BLOQUEADO;
-                this.quantumBloqueados = 2;
+                this.quantumBloqueio = 2;
                 break;
             case X:
                 this.registradorX = Integer.parseInt(instrucao.split("=")[1]);
@@ -41,7 +39,8 @@ public class Processo {
             case SAIDA:
                 this.estado = Estado.FINALIZADO;
                 break;
-        };
+        }
+        LOGGER.info("EXECUTANDO INSTRUCAO: " + instrucao + " \t|    " + this);
 
     }
 
@@ -59,15 +58,22 @@ public class Processo {
         this.estado = estado;
     }
 
-    public Integer getQuantumBloqueados() {
-        return quantumBloqueados;
-    }
-
-    public void setQuantumBloqueados(Integer quantumBloqueados) {
-        this.quantumBloqueados = quantumBloqueados;
+    public Integer getQuantumBloqueio() {
+        return quantumBloqueio;
     }
 
     public void decrementaQuantunsBloqueados(){
-        this.quantumBloqueados--;
+        this.quantumBloqueio--;
+        LOGGER.info(" DECREMENTANDO QUANTA - " + this.getQuantumBloqueio() + " \t|    " + this);
+    }
+
+    @Override
+    public String toString() {
+        return "Processo {" +
+                "estado=" + estado +
+                ", registradorX=" + registradorX +
+                ", registradorY=" + registradorY +
+                ", quantumBloqueados=" + quantumBloqueio +
+                "}";
     }
 }
