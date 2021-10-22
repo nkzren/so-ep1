@@ -2,8 +2,8 @@ package br.usp.escalonador;
 
 import br.usp.bcp.BCP;
 import br.usp.processo.Estado;
+import br.usp.utils.Metrics;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -15,6 +15,8 @@ public class Escalonador {
 
     private static final Logger LOGGER = Logger.getLogger(Escalonador.class.getSimpleName());
 
+    private Metrics metrics;
+
     private final Integer quantum;
 
     private final Queue<BCP> prontos = new LinkedBlockingQueue<>();
@@ -23,7 +25,8 @@ public class Escalonador {
 
     private final TabelaProcessos tabelaProcessos = new TabelaProcessos();
 
-    public Escalonador(Integer quantum) {
+    public Escalonador(Metrics metrics, Integer quantum) {
+        this.metrics = metrics;
         this.quantum = quantum;
     }
 
@@ -64,15 +67,20 @@ public class Escalonador {
 
             if(FINALIZADO.equals(estado)){
                 tabelaProcessos.removeProcesso(bcp.getRef());
+                metrics.instrucoesPorQuantum(i + 1);
                 break;
             } else if(BLOQUEADO.equals(estado)){
                 bloqueados.offer(bcp);
+                metrics.instrucoesPorQuantum(i + 1);
                 break;
             }
+
         }
         if(EXECUTANDO.equals(estado)){
+            metrics.instrucoesPorQuantum(3);
             prontos.offer(bcp);
             bcp.trocaEstado(PRONTO);
         }
+        metrics.incrementaTrocasProcesso();
     }
 }

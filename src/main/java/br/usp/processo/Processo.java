@@ -10,9 +10,9 @@ public class Processo {
 
     private Estado estado = Estado.PRONTO;
 
-    private Integer registradorX = null;
+    private Integer registradorX = 0;
 
-    private Integer registradorY = null;
+    private Integer registradorY = 0;
 
     private Integer quantumBloqueio = 0;
 
@@ -73,7 +73,6 @@ public class Processo {
                 "estado=" + estado +
                 ", registradorX=" + registradorX +
                 ", registradorY=" + registradorY +
-                ", quantumBloqueados=" + quantumBloqueio +
                 "}";
     }
 }

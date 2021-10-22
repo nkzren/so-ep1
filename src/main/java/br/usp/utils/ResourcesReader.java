@@ -47,18 +47,19 @@ public class ResourcesReader {
      * @param folderName o nome da pasta
      * @return a stream de arquivos, ordenada por ordem alfabetica pelo nome do arquivos
      */
-    public Stream<File> getFilesInFolder(String folderName) {
+    public List<File> getFilesInFolder(String folderName) {
         try {
             Stream<Path> filePaths = Files.walk(Paths.get(BASE_PATH + folderName));
 
             return filePaths
                     .map(Path::toFile)
                     .filter(File::isFile)
-                    .sorted((file, other) -> file.getName().compareToIgnoreCase(other.getName()));
+                    .sorted((file, other) -> file.getName().compareToIgnoreCase(other.getName()))
+                    .collect(Collectors.toList());
 
         } catch (IOException e) {
             LOGGER.error("Erro na leitura da pasta: " + folderName, e);
-            return Stream.of();
+            return List.of();
         }
     }
 }
