@@ -10,6 +10,18 @@ A especificação do EP está no arquivo pdf na raiz do projeto, e os arquivos c
 ## Getting Started
 Abaixo as instruções com o makefile. Se não quiser usar make, abra o makefile e veja os comandos executados lá dentro
 
+### Setup
+* O conteúdo dos arquivos mencionados nos itens abaixo devem seguir o padrão especificado em `ep01.pdf`
+* Coloque os programas que deseja executar em `src/main/resources/programas`. O programa lê todos os arquivos dessa pasta.
+* Coloque o arquivo `quantum.txt` em `src/main/resources`.
+
+### Rodando
+Para recompilar tudo e rodar a aplicacao:
+```sh
+make
+```
+
+
 ### Compilando a aplicação
 ```sh
 make build
