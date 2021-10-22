@@ -5,13 +5,14 @@ import br.usp.escalonador.Escalonador;
 import br.usp.utils.Metrics;
 import br.usp.utils.ResourcesReader;
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
+import org.apache.log4j.SimpleLayout;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 /**
  * Classe principal que age como controladora do escalonador
@@ -36,6 +37,7 @@ public class Main {
         Optional<String> maybeQuantum = reader.readAll("quantum.txt");
         if (maybeQuantum.isPresent()) {
             int quantum = Integer.parseInt(maybeQuantum.get());
+            configureLogger(quantum);
             LOGGER.info("Quantum: " + quantum);
 
 
@@ -47,6 +49,26 @@ public class Main {
         } else {
             LOGGER.error("Quantum inexistente. Saindo");
         }
+    }
+
+    private void configureLogger(int quantum) {
+        String logFile = "log" + formataQuantum(quantum) + ".txt";
+        try {
+            FileAppender appender = new FileAppender(new SimpleLayout(), logFile, false);
+            // Adiciona os appenders no console e na saida de um arquivo
+            BasicConfigurator.configure();
+            BasicConfigurator.configure(appender);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String formataQuantum(int quantum) {
+        String s = Integer.toString(quantum);
+        if (s.length() == 1) {
+            s = "0" + s;
+        }
+        return s;
     }
 
     /**
@@ -69,9 +91,6 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main(new ResourcesReader());
-
-        // Configura o log4j
-        BasicConfigurator.configure();
 
         main.init();
     }
