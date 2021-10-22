@@ -35,6 +35,9 @@ public class Escalonador {
         prontos.offer(blocoComandos);
     }
 
+    /**
+     * Inicia o escalonamento
+     */
     public void inicia(){
         while(tabelaProcessos.temProcesso()) {
             this.bloqueados.forEach(BCP::decrementaQuantum);
@@ -57,6 +60,9 @@ public class Escalonador {
         }
     }
 
+    /**
+     * Executa 1 quantum para o proximo processo da fila
+     */
     private void escalonaProcesso() {
         BCP bcp = prontos.poll();
 

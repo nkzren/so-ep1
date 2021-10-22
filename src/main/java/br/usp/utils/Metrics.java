@@ -2,6 +2,9 @@ package br.usp.utils;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Classe agregadora de metricas para gerar o relatorio final
+ */
 public class Metrics {
     private static final Logger LOGGER = Logger.getLogger(Metrics.class.getName());
 
@@ -30,6 +33,9 @@ public class Metrics {
         this.quantaUtilizado++;
     }
 
+    /**
+     * Gera o relatorio final
+     */
     public void relatorio() {
         System.out.println();
         System.out.println();

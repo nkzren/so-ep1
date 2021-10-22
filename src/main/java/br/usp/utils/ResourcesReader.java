@@ -18,6 +18,11 @@ public class ResourcesReader {
 
     private static final String BASE_PATH = "src/main/resources/";
 
+    /**
+     * Funcao para ler um arquivo ate o final
+     * @param fileName o nome do arquivo a ser lido
+     * @return O conteudo do arquivo
+     */
     public Optional<String> readAll(String fileName) {
         try {
             return Optional.of(Files.readString(Paths.get(BASE_PATH + fileName)).replaceAll("\n", ""));

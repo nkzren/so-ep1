@@ -52,7 +52,7 @@ public class Main {
     }
 
     private void configureLogger(int quantum) {
-        String logFile = "log" + formataQuantum(quantum) + ".txt";
+        String logFile = "logs/log" + formataQuantum(quantum) + ".txt";
         try {
             FileAppender appender = new FileAppender(new SimpleLayout(), logFile, false);
             // Adiciona os appenders no console e na saida de um arquivo
