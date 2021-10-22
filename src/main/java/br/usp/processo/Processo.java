@@ -22,6 +22,10 @@ public class Processo {
         this.instrucoes = instrucoes;
     }
 
+    /**
+     * Funcao que interpreta as instrucoes recebidas e modifica o processo
+     * @param instrucao a instrucao
+     */
     private void comando(String instrucao){
         switch(Instrucao.fromString(instrucao)){
             case COM:
@@ -44,6 +48,10 @@ public class Processo {
 
     }
 
+    /**
+     * Funcao que recupera a instrucao e inicia o processo de interpreta-lo
+     * @param contador Contador de instrucao a ser executada
+     */
     public void executa(int contador){
         String instrucao = instrucoes.get(contador);
         this.estado = Estado.EXECUTANDO;

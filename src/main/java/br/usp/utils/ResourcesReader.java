@@ -12,6 +12,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Classe para lidar com a leitura de arquivos
+ */
 public class ResourcesReader {
 
     private static final Logger LOGGER = Logger.getLogger(ResourcesReader.class);

@@ -30,6 +30,10 @@ public class Escalonador {
         this.quantum = quantum;
     }
 
+    /**
+     * Carrega o BCP na tabela de processos e adiciona na fila de prontos
+     * @param blocoComandos bcp a ser inserido
+     */
     public void carregaBCP(BCP blocoComandos) {
         tabelaProcessos.adicionaProcesso(blocoComandos);
         prontos.offer(blocoComandos);
@@ -47,16 +51,22 @@ public class Escalonador {
                 LOGGER.warn("FILA DE PRONTOS VAZIA");
             }
 
-            // Verifica a lista de processos bloqueados
             if(!this.bloqueados.isEmpty()){
-                BCP bcpBloqueado = this.bloqueados.peek();
-
-                if(bcpBloqueado != null && bcpBloqueado.verificaPronto()){
-                    BCP pronto = this.bloqueados.poll();
-                    LOGGER.info("REENFILEIRANDO PARA PRONTO: " + pronto.getNomePrograma());
-                    this.prontos.offer(pronto);
-                }
+                verificaBloqueados();
             }
+        }
+    }
+
+    /**
+     * Trata a fila de processos bloqueados
+     */
+    private void verificaBloqueados() {
+        BCP bcpBloqueado = this.bloqueados.peek();
+
+        if(bcpBloqueado != null && bcpBloqueado.verificaPronto()){
+            BCP pronto = this.bloqueados.poll();
+            LOGGER.info("REENFILEIRANDO PARA PRONTO: " + pronto.getNomePrograma());
+            this.prontos.offer(pronto);
         }
     }
 
