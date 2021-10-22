@@ -40,8 +40,8 @@ public class Metrics {
         System.out.println();
         System.out.println();
         LOGGER.info("##### INICIANDO RELATORIO DE METRICAS #####");
-        LOGGER.info("QUANTUM: \t\t" + quantum);
-        LOGGER.info("MEDIA DE TROCAS: \t" + (double) trocasProcesso / qtdProcessos);
+        LOGGER.info("QUANTUM: \t\t\t\t" + quantum);
+        LOGGER.info("MEDIA DE TROCAS: \t\t" + (double) trocasProcesso / qtdProcessos);
         LOGGER.info("MEDIA DE INSTRUCOES: \t" + (double) qtdInstrucoes / quantaUtilizado);
     }
 }

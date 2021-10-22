@@ -4,10 +4,7 @@ import br.usp.bcp.BCP;
 import br.usp.escalonador.Escalonador;
 import br.usp.utils.Metrics;
 import br.usp.utils.ResourcesReader;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Logger;
-import org.apache.log4j.SimpleLayout;
+import org.apache.log4j.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,9 +51,9 @@ public class Main {
     private void configureLogger(int quantum) {
         String logFile = "logs/log" + formataQuantum(quantum) + ".txt";
         try {
-            FileAppender appender = new FileAppender(new SimpleLayout(), logFile, false);
+            Layout layout = new PatternLayout("%-5p %c %x - %m%n");
+            FileAppender appender = new FileAppender(layout, logFile, false);
             // Adiciona os appenders no console e na saida de um arquivo
-            BasicConfigurator.configure();
             BasicConfigurator.configure(appender);
         } catch (IOException e) {
             e.printStackTrace();
