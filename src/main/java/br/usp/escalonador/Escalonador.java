@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import static br.usp.processo.Estado.FINALIZADO;
+import static br.usp.processo.Estado.*;
 
 public class Escalonador {
 
@@ -37,16 +37,38 @@ public class Escalonador {
             BCP bcp = prontos.poll();
 
             LOGGER.info("EXECUTANDO PROCESSO: " + bcp.getNomePrograma());
+            Estado estado = null;
+
+            this.bloqueados.forEach(BCP::decrementaQuantum);
 
             for(int i = 0; i < quantum; i++){
-                Estado estado = bcp.executaProxInstrucao();
+                estado = bcp.executaProxInstrucao();
 
-                if(estado.equals(FINALIZADO)){
+                if(FINALIZADO.equals(estado)){
                     tabelaProcessos.removeProcesso(bcp.getRef());
-                    return;
+                    break;
+                } else if(BLOQUEADO.equals(estado)){
+                    bloqueados.offer(bcp);
+                    break;
                 }
             }
-            prontos.offer(bcp);
+
+            if(EXECUTANDO.equals(estado)){
+                prontos.offer(bcp);
+                bcp.trocaEstado(PRONTO);
+            }
+
+            if(!this.bloqueados.isEmpty()){
+                BCP bcpBloqueado = this.bloqueados.peek();
+
+                if(bcpBloqueado.verificaPronto()){
+
+                    this.prontos.offer(this.bloqueados.poll());
+                }
+            }
+
+
         }
     }
+
 }

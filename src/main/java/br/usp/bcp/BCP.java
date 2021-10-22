@@ -16,6 +16,7 @@ public class BCP {
 
     private final UUID ref;
 
+
     /**
      * Funcao contendo toda a inicializacao do BCP a partir das linhas do arquivo de texto lido
      * @param instrucoes lista de instrucoes do arquivo
@@ -46,5 +47,21 @@ public class BCP {
         this.contadorPrograma++;
 
         return this.processo.getEstado();
+    }
+
+    public void trocaEstado(Estado estado){
+        this.processo.setEstado(estado);
+    }
+
+    public boolean verificaPronto(){
+        if(this.processo.getQuantumBloqueados() == 0){
+            this.trocaEstado(Estado.PRONTO);
+            return true;
+        }
+        return false;
+    }
+
+    public void decrementaQuantum(){
+        this.processo.decrementaQuantunsBloqueados();
     }
 }
