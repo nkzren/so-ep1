@@ -1,6 +1,5 @@
-# EP1 SO - Escalonador de Processos
 ![image](https://user-images.githubusercontent.com/37965946/193656169-0d1ecfed-905f-4c40-947b-f27e4d5e6321.png)
-
+# EP1 SO - Escalonador de Processos
 
 A especificação do EP está no arquivo pdf na raiz do projeto, e os arquivos citados no documento estão em `src/main/resources`
 
